@@ -1,0 +1,7 @@
+-object can be instantiated
+-restaurant can create a new menu
+-restaurant can add new item in menu
+-restaurant can add item from existing list
+-restaurant can remove an item from menu
+-restaurant can check for list of orders
+-restaurant can update their status (open/closed)

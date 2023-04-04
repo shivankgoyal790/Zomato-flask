@@ -1,0 +1,8 @@
+-object of item should be instantiated
+-item should display its properties
+
+
+
+why oops not procedural.
+strings.
+unit testing. 

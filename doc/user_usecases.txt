@@ -1,0 +1,6 @@
+-object of user should be instantiated
+-user can add items in his cart
+-user can delete item in his cart
+-user can check his cart
+-user can place a new order
+-use can update his profile info

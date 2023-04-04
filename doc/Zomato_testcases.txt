@@ -1,0 +1,8 @@
+-object of zomato should be instantiated
+-zomato can check its list of orders
+-zomato should show list of all the restaurant
+-zomato should authenticate a user
+-zomato should register a new restaurant
+-zomato should register a new customer
+-zomato should register a new delivery boy
+

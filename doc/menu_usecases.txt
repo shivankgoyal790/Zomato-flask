@@ -1,0 +1,2 @@
+-object of menu should be instantiated
+-menu should display all items in menu

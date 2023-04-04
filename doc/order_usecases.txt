@@ -1,0 +1,2 @@
+-object of order can be instantiated
+-order should show all its detail
