@@ -56,7 +56,7 @@ class existingitemschema(Schema):
     price = fields.Int(required=True)
 
 class OrderAndItemSchema(Schema):
-    id = fields.Int(dump_only=True)
+    menuitem = fields.Nested(MenuitemSchema(),dump_only=True)
 
 class OrderSchema(Schema):
     id = fields.Int(dump_only=True)

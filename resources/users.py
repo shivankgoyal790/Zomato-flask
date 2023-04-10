@@ -8,9 +8,8 @@ from models import (
     ItemRatingModel,
     RestaurantRatingModel,
     RestaurantModel,
-    DeliveryModel,
     OrderModel,
-    OrderMenuItemModel
+    OrderMenuItemModel,
 )
 from db import db
 from flask_jwt_extended import jwt_required, get_jwt
@@ -21,25 +20,28 @@ blp = Blueprint("users", __name__, description="Operations on users")
 
 @blp.route("/user/<string:user_id>")
 class UserRoutes(MethodView):
+
     @blp.response(200, UserSchema)
     def get(self, user_id):
-
         user = UserModel.query.get_or_404(user_id)
         return user
 
 
 @blp.route("/user/<string:user_id>/order")
 class Userorder(MethodView):
+
     @jwt_required()
     def post(self, user_id):
 
         claim = get_jwt()
         if claim["role"] != "user" or claim["sub"] != int(user_id):
             abort(401, "unauthorised")
+
         x = random.randint(1, 4)
         user = UserModel.query.get_or_404(user_id)
         cart = user.cart
         totalbill = 0
+
         for i in cart:
             totalbill += MenuitemModel.query.get_or_404(i.menuitem_id).price
 
@@ -49,22 +51,27 @@ class Userorder(MethodView):
         order = OrderModel(rest_id=1, agent_id=x, user_id=user_id, totalbill=totalbill)
         db.session.add(order)
         db.session.commit()
+
         for i in user.cart:
             newentry = OrderMenuItemModel(
-                user_id = user_id,
-                menuitem_id = i.menuitem_id,
-                order_id = order.id,
+                user_id=user_id,
+                menuitem_id=i.menuitem_id,
+                order_id=order.id,
             )
             db.session.add(newentry)
             db.session.commit()
+
         UserMenuItemModel.query.filter(UserMenuItemModel.user_id == user_id).delete()
+
         db.session.add(order)
         db.session.add(user)
         db.session.commit()
-        return "order placed"
+
+        return "order placed",201
 
     @jwt_required()
     @blp.response(200, OrderSchema(many=True))
+    
     def get(self, user_id):
         claim = get_jwt()
         if claim["role"] != "user" or claim["sub"] != int(user_id):
